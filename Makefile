@@ -31,7 +31,7 @@ HTS_LIB = ./htslib/libhts.a
 HTS_INCLUDE = -I./htslib
 
 #tensorflow
-TENS_NAME = "libtensorflow-gpu-linux-x86_64-2.10.0.tar.gz"
+TENS_NAME = "libtensorflow-cpu-linux-x86_64-2.10.0.tar.gz"
 TENS_DEPEND = tensorflow/include/tensorflow/c/c_api.h
 TENS_LIB = -Wl,-rpath,${PATH_SPACEFIX}tensorflow/lib -L tensorflow/lib
 TENS_INCLUDE = -I./tensorflow/include
