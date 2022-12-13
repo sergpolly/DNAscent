@@ -21,7 +21,7 @@ endif
 
 #hdf5
 H5_VER_MAJOR = 1.10
-H5_VER_MINOR = 8
+H5_VER_MINOR = 9
 H5_VER = $(H5_VER_MAJOR).$(H5_VER_MINOR)
 H5_LIB = ./hdf5-$(H5_VER)/hdf5/lib/libhdf5.a
 H5_INCLUDE = -I./hdf5-$(H5_VER)/hdf5/include
