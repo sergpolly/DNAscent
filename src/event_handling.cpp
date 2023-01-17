@@ -675,9 +675,11 @@ void normaliseEvents( read &r, bool bulkFast5 ){
 
 	/*rough calculation of shift and scale so that we can align events */
 	PoreParameters s = roughRescale( r.normalisedEvents, r.basecall, kmer_ranks );
+	std::cout << "read scalings BEFORE simple event align "<<" "<<r.scalings.shift<<" "<<r.scalings.drift<<" "<<r.scalings.scale<<" "<<r.scalings.var<<std::endl;
 
 	/*align 5mers to events using the basecall */
 	adaptive_banded_simple_event_align(r.normalisedEvents, r, s, kmer_ranks);
+	std::cout << "read scalings AFTER simple event align "<<" "<<r.scalings.shift<<" "<<r.scalings.drift<<" "<<r.scalings.scale<<" "<<r.scalings.var<<std::endl;
 	r.scalings.eventsPerBase = std::max(1.25, (double) r.eventAlignment.size() / (double) (r.basecall.size() - 5));
 
 }

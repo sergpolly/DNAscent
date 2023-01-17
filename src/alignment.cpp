@@ -1295,6 +1295,7 @@ std::string eventalign_train( read &r,
 			double scaledEvent = (eventSnippet[evIdx] - r.scalings.shift) / r.scalings.scale;
 			double eventLength = eventLengthsSnippet[evIdx];
 
+			if (scaledEvent <= 0.0) { std::cout << "broken read111 "<<r.readID <<" "<<r.filename<<std::endl; };
 			assert(scaledEvent > 0.0);
 
 			unsigned int evPos;
@@ -1533,7 +1534,9 @@ std::cerr << "Out of reference sequence size: " << (r.referenceSeqMappedTo).leng
 			double scaledEvent = (eventSnippet[evIdx] - r.scalings.shift) / r.scalings.scale;
 			double eventLength = eventLengthsSnippet[evIdx];
 
-			assert(scaledEvent > 0.0);
+			if (scaledEvent <= 0.0){
+				throw "scaledEvent (eventSnippet[evIdx] - r.scalings.shift) / r.scalings.scale < 0";
+			}
 
 			unsigned int evPos;
 			std::string sixMerRef;
@@ -1732,6 +1735,7 @@ std::cerr << "Out of reference sequence size: " << (r.referenceSeqMappedTo).leng
 			double scaledEvent = (eventSnippet[evIdx] - r.scalings.shift) / r.scalings.scale;
 			double eventLength = eventLengthsSnippet[evIdx];
 
+			if (scaledEvent <= 0.0) { std::cout << "broken read222 "<<r.readID <<" "<<r.filename<<std::endl; };
 			assert(scaledEvent > 0.0);
 
 			unsigned int evPos;
