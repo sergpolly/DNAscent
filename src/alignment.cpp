@@ -1534,7 +1534,8 @@ std::cerr << "Out of reference sequence size: " << (r.referenceSeqMappedTo).leng
 			double scaledEvent = (eventSnippet[evIdx] - r.scalings.shift) / r.scalings.scale;
 			double eventLength = eventLengthsSnippet[evIdx];
 
-			if (scaledEvent <= 0.0){
+			if (!(scaledEvent > 0.0)){
+				std::cout << "bad scaledEvent detected  " << scaledEvent << std::endl;
 				throw "scaledEvent (eventSnippet[evIdx] - r.scalings.shift) / r.scalings.scale < 0";
 			}
 
@@ -1735,8 +1736,13 @@ std::cerr << "Out of reference sequence size: " << (r.referenceSeqMappedTo).leng
 			double scaledEvent = (eventSnippet[evIdx] - r.scalings.shift) / r.scalings.scale;
 			double eventLength = eventLengthsSnippet[evIdx];
 
-			if (scaledEvent <= 0.0) { std::cout << "broken read222 "<<r.readID <<" "<<r.filename<<std::endl; };
-			assert(scaledEvent > 0.0);
+			//if (scaledEvent <= 0.0) { std::cout << "broken read222 "<<r.readID <<" "<<r.filename<<std::endl; };
+			if (!(scaledEvent > 0.0)) {
+				std::cout << "second bad scaledEvent detected   " << scaledEvent << std::endl;
+				std::cout << "moar info" << evIdx << " " << eventSnippet[evIdx] << " " << r.scalings.shift << " " << r.scalings.scale << " "<< eventLength << std::endl;
+				throw "SECOND ASSERT!!! scaledEvent (eventSnippet[evIdx] - r.scalings.shift) / r.scalings.scale < 0";
+			}
+
 
 			unsigned int evPos;
 			std::string sixMerRef;

@@ -1040,7 +1040,13 @@ int detect_main( int argc, char** argv ){
 				//catch reads with rough event alignments that fail the QC
 				if ( r.eventAlignment.size() == 0 ){
 
-					std::cout << "this one is going to fail after normaliseEvents ... "<<std::endl;
+					//std::cout << "this one is going to fail after normaliseEvents ... "<<std::endl;
+					failed++;
+					prog++;
+					continue;
+				}
+				// catch strange reads with scale < 0.0 - that originate from short alignments
+				if ( r.scalings.scale <= 0.0 ) {
 					failed++;
 					prog++;
 					continue;
@@ -1053,19 +1059,20 @@ int detect_main( int argc, char** argv ){
 				} catch (const char* msg) {
 					std::cout << msg << std::endl;
 					std::cout << std::endl;
-					std::cout << r.basecall << " " << r.referenceSeqMappedTo << " " << r.referenceSeqMappedTo << " " << r.filename << " " << r.readID << std::endl;
+					std::cout << r.basecall << " " << " " << r.referenceSeqMappedTo << " " << r.filename << " " << r.readID << std::endl;
 					std::cout << r.scalings.shift << " " << r.scalings.drift << " " << r.scalings.scale << " " << r.scalings.var << " " << r.scalings.eventsPerBase << std::endl;
 					std::cout << std::endl;
-					for (auto it=r.refToQuery.begin(); it != r.refToQuery.end(); ++it){
-						std::cout << it->first << "==" << it->second << std::endl;
-					}
-					failed++;
-					prog++;
-					continue;
+					//for (auto it=r.refToQuery.begin(); it != r.refToQuery.end(); ++it){
+					//	std::cout << it->first << "==" << it->second << std::endl;
+					//}
+					//failed++;
+					//prog++;
+					//continue;
+					assert(false);
 				}
 
 				if (not ar.first){
-					std::cout << "this one is going to fail after EVENTALIGN_DETECT ... "<<std::endl;
+					//std::cout << "this one is going to fail after EVENTALIGN_DETECT ... "<<std::endl;
 					failed++;
 					prog++;
 					continue;
